@@ -1,0 +1,8 @@
+# IDE configurations file
+.idea
+.project
+.settings
+.classpath
+
+# Compiled output
+target
