@@ -11,7 +11,7 @@ import fr.bred.batchtotem.domain.RawTransactionDetail;
 import fr.bred.batchtotem.domain.TransactionDetail;
 
 @Component
-public class JobStep {
+public class StepValidation {
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
     @Autowired
@@ -28,15 +28,14 @@ public class JobStep {
     @Value("${batch.chunk.size}")
     private int chunkSize;
 
-    public Step stepValidateData() {
-        return stepBuilderFactory.get("stepAggregatedData") //
+    public Step getStep() {
+        return stepBuilderFactory.get("StepValidation") //
                 .<TransactionDetail, RawTransactionDetail> chunk(chunkSize) //
-                .reader(csvReader.csvInputReader()) // Item Reader
-                .processor(transactionItemProcessor) // Item Processor
-                .writer(transactionItemWriter.compositeItemWriter()) // Item writer
+                .reader(csvReader.csvInputReader()) //
+                .processor(transactionItemProcessor) //
+                .writer(transactionItemWriter.compositeItemWriter()) //
                 .stream(csvSuccessWriter) //
                 .stream(csvFailedWriter) //
                 .build();
     }
-
 }

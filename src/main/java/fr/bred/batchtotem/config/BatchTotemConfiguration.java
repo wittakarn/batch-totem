@@ -19,7 +19,10 @@ import org.springframework.core.io.FileSystemResource;
 
 import fr.bred.batchtotem.BatchTotemExitCodeGenerator;
 import fr.bred.batchtotem.domain.RawTransactionDetail;
-import fr.bred.batchtotem.step.JobStep;
+import fr.bred.batchtotem.router.TransactionDataJobExecutionRouter;
+import fr.bred.batchtotem.step.StepBusiness;
+import fr.bred.batchtotem.step.StepMailing;
+import fr.bred.batchtotem.step.StepValidation;
 import fr.bred.batchtotem.writter.NoOpItemWriter;
 import fr.bred.starter.core.EnableStarterCore;
 
@@ -30,8 +33,13 @@ import fr.bred.starter.core.EnableStarterCore;
 public class BatchTotemConfiguration {
 
     @Autowired
-    private JobStep jobStep;
-
+    private StepValidation stepValidation;
+    @Autowired
+    private StepMailing stepMailing;
+    @Autowired
+    private StepBusiness stepBusiness;
+    @Autowired
+    private TransactionDataJobExecutionRouter transactionDataJobExecutionRouter;
     @Value("${csv.output}")
     private String cvsOutputFolder;
 
@@ -45,7 +53,10 @@ public class BatchTotemConfiguration {
      // @formatter:off
         return jobBuilderFactory.get("batch-totem")
                 .incrementer(new RunIdIncrementer())
-                .flow(jobStep.stepValidateData())
+                .flow(stepValidation.getStep())
+                .next(transactionDataJobExecutionRouter)
+                    .on("VALIDATE_FAILED").to(stepMailing.getStep())
+                    .from(transactionDataJobExecutionRouter).on("VALIDATE_SUCCESS").to(stepBusiness.getStep())
                 .end()
                 .build();
      // @formatter:on
