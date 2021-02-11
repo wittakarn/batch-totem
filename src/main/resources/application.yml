@@ -14,5 +14,19 @@ batch:
   chunk:
     size: 10
 csv:
-  output: E:\output\
+  input: E:\batch-totem\input\
+  output: E:\batch-totem\output\
   
+url:
+  bspublishmsg: https://bs-publishmsg-v2.ms.developpement.local/api
+  bsauthentmanag: https://bs-authentmanag-v2.ms.developpement.local/api
+  
+servicecontext:
+  batchUser:
+    applicationId: batch-totem
+    consumingId: TIWL
+    consumingChannel: BATCH
+    peo: 8347
+    userId: svc_fti
+    societyCode: "01"
+    tokenContext: dummy

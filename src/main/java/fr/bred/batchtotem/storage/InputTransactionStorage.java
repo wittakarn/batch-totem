@@ -19,18 +19,31 @@ public class InputTransactionStorage {
     private List<InputRepatriation> inputRepatriations;
     private List<InputAssignmentDetail> inputAssignmentDetails;
     private List<InputSummarization> inputSummarizations;
-    private String validationMessage;
+    private List<String> validationMessages;
 
     public InputTransactionStorage() {
         transactionSummarization = new TransactionSummarization();
         inputRepatriations = new ArrayList<>();
         inputAssignmentDetails = new ArrayList<>();
         inputSummarizations = new ArrayList<>();
+        validationMessages = new ArrayList<>();
     }
 
     public void updateTransactionSummary(String summarizeOfMtemisStr, String summarizeOfMtrecuStr) {
-        BigDecimal summarizeOfMtemis = NumberUtil.getBigDecimalValue(summarizeOfMtemisStr);
-        BigDecimal summarizeOfMtrecu = NumberUtil.getBigDecimalValue(summarizeOfMtrecuStr);
+        BigDecimal summarizeOfMtemis = BigDecimal.ZERO;
+        BigDecimal summarizeOfMtrecu = BigDecimal.ZERO;
+
+        if (NumberUtil.isNumeric(summarizeOfMtemisStr)) {
+            summarizeOfMtemis = NumberUtil.getBigDecimalValue(summarizeOfMtemisStr);
+        } else {
+            addValidationMessage("Cannot parse mtemis: " + summarizeOfMtemisStr + " to numeric");
+        }
+
+        if (NumberUtil.isNumeric(summarizeOfMtrecuStr)) {
+            summarizeOfMtrecu = NumberUtil.getBigDecimalValue(summarizeOfMtrecuStr);
+        } else {
+            addValidationMessage("Cannot parse mtrecu:  " + summarizeOfMtrecuStr + " to numeric");
+        }
 
         transactionSummarization.setRecordCount(transactionSummarization.getRecordCount() + 1);
         transactionSummarization.setSummarizeOfMtemis(transactionSummarization.getSummarizeOfMtemis().add(summarizeOfMtemis));
@@ -65,11 +78,11 @@ public class InputTransactionStorage {
         return inputSummarizations;
     }
 
-    public String getValidationMessage() {
-        return validationMessage;
+    public List<String> getValidationMessages() {
+        return validationMessages;
     }
 
-    public void setValidationMessage(String validationMessage) {
-        this.validationMessage = validationMessage;
+    public void addValidationMessage(String validationMessage) {
+        this.validationMessages.add(validationMessage);
     }
 }

@@ -14,7 +14,7 @@ public class TaskletBusiness implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        log.info("--------------------------- Do what ever you want ----------------------------------");
+        log.info("--------------------------- Validation pass, we can continue ----------------------------------");
         return RepeatStatus.FINISHED;
     }
 

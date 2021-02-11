@@ -21,6 +21,11 @@
         <developerConnection>scm:git:${scm.server.url}/bred/batch-totem</developerConnection>
     </scm>
 
+    <properties>
+        <publishmsg.version>2.1.0</publishmsg.version>
+        <authentmanag.version>2.1.4</authentmanag.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -65,11 +70,25 @@
             <artifactId>bred-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>fr.bred.sup.inf.sec.bs-authentmanag</groupId>
+            <artifactId>bs-authentmanag-definition</artifactId>
+            <version>${authentmanag.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.bred.sup.log.edt.bs-publishmsg</groupId>
+            <artifactId>bs-publishmsg-definition</artifactId>
+            <version>${publishmsg.version}</version>
+        </dependency>
+        
     </dependencies>
 
     <build>

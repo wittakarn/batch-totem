@@ -27,7 +27,7 @@ public class InputTransactionValidator {
             message = getSummarizationResult();
         }
 
-        inputTransactionStorage.setValidationMessage(message);
+        inputTransactionStorage.addValidationMessage(message);
 
         return message;
     }
@@ -36,11 +36,26 @@ public class InputTransactionValidator {
         InputSummarization inputSummarization = inputTransactionStorage.getInputSummarizations().get(0);
         TransactionSummarization transactionSummarization = inputTransactionStorage.getTransactionSummarization();
 
-        Integer totalInputAssignmentDetail = inputSummarization.getTotalInputAssignmentDetail() == null //
-                || "".equals(inputSummarization.getTotalInputAssignmentDetail()) //
-                        ? 0 : Integer.parseInt(inputSummarization.getTotalInputAssignmentDetail());
-        BigDecimal summarizeOfMtemis = NumberUtil.getBigDecimalValue(inputSummarization.getSummarizeOfMtemis());
-        BigDecimal summarizeOfMtrecu = NumberUtil.getBigDecimalValue(inputSummarization.getSummarizeOfMtrecu());
+        Integer totalInputAssignmentDetail = 0;
+        if (NumberUtil.isNumeric(inputSummarization.getTotalInputAssignmentDetail())) {
+            totalInputAssignmentDetail = Integer.parseInt(inputSummarization.getTotalInputAssignmentDetail());
+        } else {
+            return "Cannot parse TotalInputAssignmentDetail: " + inputSummarization.getTotalInputAssignmentDetail() + " to numeric";
+        }
+
+        BigDecimal summarizeOfMtemis;
+        if (NumberUtil.isNumeric(inputSummarization.getSummarizeOfMtemis())) {
+            summarizeOfMtemis = NumberUtil.getBigDecimalValue(inputSummarization.getSummarizeOfMtemis());
+        } else {
+            return "Cannot parse SummarizeOfMtemis: " + inputSummarization.getSummarizeOfMtemis() + " to numeric";
+        }
+
+        BigDecimal summarizeOfMtrecu;
+        if (NumberUtil.isNumeric(inputSummarization.getSummarizeOfMtemis())) {
+            summarizeOfMtrecu = NumberUtil.getBigDecimalValue(inputSummarization.getSummarizeOfMtrecu());
+        } else {
+            return "Cannot parse SummarizeOfMtrecu: " + inputSummarization.getSummarizeOfMtrecu() + " to numeric";
+        }
 
         if (totalInputAssignmentDetail.intValue() != transactionSummarization.getRecordCount()) {
             return "Record count incorrect";
