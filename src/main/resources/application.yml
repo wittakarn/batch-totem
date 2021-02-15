@@ -1,15 +1,6 @@
 logging:
   level:
     fr.bred: DEBUG
-parameters:
-  name: World
-datasources:
-  batch:
-    platform: h2
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    jdbc-url: jdbc:h2:mem:jdbc:h2:mem:batch;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 batch:
   chunk:
     size: 10
@@ -20,6 +11,12 @@ csv:
 url:
   bspublishmsg: https://bs-publishmsg-v2.ms.developpement.local/api
   bsauthentmanag: https://bs-authentmanag-v2.ms.developpement.local/api
+  
+emailcontext:
+  validationFailed:
+      from: automail@bred-it.com
+      to: wittakarn.keeratichayakorn@bred-it.com
+      cc: wittakarn.expert@gmail.com
   
 servicecontext:
   batchUser:

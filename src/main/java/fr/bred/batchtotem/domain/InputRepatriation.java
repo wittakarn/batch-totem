@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 public class InputRepatriation extends TransactionDetail {
     private static final long serialVersionUID = 1L;
 
-    public String codePays;
-    public String nbRap;
-    public String corrStobi;
+    public String countryCode;
+    public String numberOfRecord;
+    public String correspondingStobi;
     public String compte;
-    public String refCor;
+    public String refCorresponding;
     public String refDebit;
-    public String devise;
-    public String mtRap;
-    public String mtEur;
-    public String fraisRap;
+    public String currency;
+    public String amountRap;
+    public String euroAmount;
+    public String costRap;
 }

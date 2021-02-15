@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import fr.bred.batchtotem.domain.InputAssignmentDetail;
 import fr.bred.batchtotem.domain.InputRepatriation;
-import fr.bred.batchtotem.domain.InputSummarization;
+import fr.bred.batchtotem.domain.TransactionDetail;
 
 @Component
 public class TransactionDetailFieldSetMapper {
@@ -25,9 +25,9 @@ public class TransactionDetailFieldSetMapper {
         return mapper;
     }
 
-    public BeanWrapperFieldSetMapper<InputSummarization> mapInputSummarizationFieldSet() {
-        BeanWrapperFieldSetMapper<InputSummarization> mapper = new BeanWrapperFieldSetMapper<>();
-        mapper.setTargetType(InputSummarization.class);
+    public BeanWrapperFieldSetMapper<TransactionDetail> mapTransactionDetailFieldSet() {
+        BeanWrapperFieldSetMapper<TransactionDetail> mapper = new BeanWrapperFieldSetMapper<>();
+        mapper.setTargetType(TransactionDetail.class);
         mapper.setStrict(false);
         mapper.setDistanceLimit(1);
         return mapper;

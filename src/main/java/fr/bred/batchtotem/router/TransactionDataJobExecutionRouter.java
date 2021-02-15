@@ -17,7 +17,7 @@ public class TransactionDataJobExecutionRouter implements JobExecutionDecider {
 
     @Override
     public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
-        if (inputTransactionValidator.getValidateMessage() == null) {
+        if (inputTransactionValidator.getValidateMessage().isEmpty()) {
             return new FlowExecutionStatus("VALIDATE_SUCCESS");
         } else {
             return new FlowExecutionStatus("VALIDATE_FAILED");

@@ -1,0 +1,29 @@
+logging:
+  level:
+    fr.bred: DEBUG
+batch:
+  chunk:
+    size: 10
+csv:
+  input: E:\batch-totem\input\
+  output: E:\batch-totem\output\
+  
+url:
+  bspublishmsg: https://bs-publishmsg-v2.ms.developpement.local/api
+  bsauthentmanag: https://bs-authentmanag-v2.ms.developpement.local/api
+  
+emailcontext:
+  validationFailed:
+      from: automail@bred-it.com
+      to: to1@bred-it.com,to2@bred-it.com,to3@bred-it.com
+      cc: cc1@bred-it.com,cc2@bred-it.com,cc3@bred-it.com
+  
+servicecontext:
+  batchUser:
+    applicationId: batch-totem
+    consumingId: TIWL
+    consumingChannel: BATCH
+    peo: 8347
+    userId: svc_fti
+    societyCode: "01"
+    tokenContext: dummy

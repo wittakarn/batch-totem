@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class InputAssignmentDetail extends TransactionDetail {
     private static final long serialVersionUID = 1L;
 
-    public String matricule;
-    public String codeCaisse;
-    public String nDossierStobi;
-    public String mtemis;
-    public String mtrecu;
-    public String dateDePaiementInitial;
-    public String motif;
-    public String motifDurap;
+    public String beneficiaryCode;
+    public String customerCode;
+    public String stobiNumber;
+    public String amountSent;
+    public String amountReceived;
+    public String initialPaymentDate;
+    public String patternDcu;
+    public String patternRap;
 }

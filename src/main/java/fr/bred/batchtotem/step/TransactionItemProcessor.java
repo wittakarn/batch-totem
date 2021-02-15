@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import fr.bred.batchtotem.domain.InputAssignmentDetail;
 import fr.bred.batchtotem.domain.InputRepatriation;
-import fr.bred.batchtotem.domain.InputSummarization;
 import fr.bred.batchtotem.domain.RawTransactionDetail;
 import fr.bred.batchtotem.domain.TransactionDetail;
 import fr.bred.batchtotem.storage.InputTransactionStorage;
@@ -26,49 +25,37 @@ public class TransactionItemProcessor implements ItemProcessor<TransactionDetail
         if (transactionDetail instanceof InputAssignmentDetail) {
             InputAssignmentDetail inputAssignmentDetail = (InputAssignmentDetail) transactionDetail;
             inputTransactionStorage.addInputAssignmentDetail(inputAssignmentDetail);
-            inputTransactionStorage.updateTransactionSummary(inputAssignmentDetail.getMtemis(), inputAssignmentDetail.getMtrecu());
 
             raw.setCol1(inputAssignmentDetail.getType());
-            raw.setCol2(inputAssignmentDetail.getMatricule());
-            raw.setCol3(inputAssignmentDetail.getCodeCaisse());
-            raw.setCol4(inputAssignmentDetail.getNDossierStobi());
-            raw.setCol5(inputAssignmentDetail.getMtemis());
-            raw.setCol6(inputAssignmentDetail.getMtrecu());
-            raw.setCol7(inputAssignmentDetail.getDateDePaiementInitial());
-            raw.setCol8(inputAssignmentDetail.getMotif());
-            raw.setCol9(inputAssignmentDetail.getMotifDurap());
+            raw.setCol2(inputAssignmentDetail.getBeneficiaryCode());
+            raw.setCol3(inputAssignmentDetail.getCustomerCode());
+            raw.setCol4(inputAssignmentDetail.getStobiNumber());
+            raw.setCol5(inputAssignmentDetail.getAmountSent());
+            raw.setCol6(inputAssignmentDetail.getAmountReceived());
+            raw.setCol7(inputAssignmentDetail.getInitialPaymentDate());
+            raw.setCol8(inputAssignmentDetail.getPatternDcu());
+            raw.setCol9(inputAssignmentDetail.getPatternRap());
             raw.setCol10("");
             raw.setCol11("");
-        } else if (transactionDetail instanceof InputSummarization) {
-            InputSummarization inputSummarization = (InputSummarization) transactionDetail;
-            inputTransactionStorage.addInputSummarization((InputSummarization) transactionDetail);
-
-            raw.setCol1(inputSummarization.getType());
-            raw.setCol2(inputSummarization.getTotalInputAssignmentDetail());
-            raw.setCol3("");
-            raw.setCol4("");
-            raw.setCol5(inputSummarization.getSummarizeOfMtemis());
-            raw.setCol6(inputSummarization.getSummarizeOfMtrecu());
-            raw.setCol7("");
-            raw.setCol8("");
-            raw.setCol9("");
-            raw.setCol10("");
-            raw.setCol11("");
-        } else {
+        } else if (transactionDetail instanceof InputRepatriation) {
             InputRepatriation inputRepatriation = (InputRepatriation) transactionDetail;
             inputTransactionStorage.addInputRepatriation(inputRepatriation);
 
             raw.setCol1(inputRepatriation.getType());
-            raw.setCol2(inputRepatriation.getCodePays());
-            raw.setCol3(inputRepatriation.getNbRap());
-            raw.setCol4(inputRepatriation.getCorrStobi());
+            raw.setCol2(inputRepatriation.getCountryCode());
+            raw.setCol3(inputRepatriation.getNumberOfRecord());
+            raw.setCol4(inputRepatriation.getCorrespondingStobi());
             raw.setCol5(inputRepatriation.getCompte());
-            raw.setCol6(inputRepatriation.getRefCor());
+            raw.setCol6(inputRepatriation.getRefCorresponding());
             raw.setCol7(inputRepatriation.getRefDebit());
-            raw.setCol8(inputRepatriation.getDevise());
-            raw.setCol9(inputRepatriation.getMtRap());
-            raw.setCol10(inputRepatriation.getMtEur());
-            raw.setCol11(inputRepatriation.getFraisRap());
+            raw.setCol8(inputRepatriation.getCurrency());
+            raw.setCol9(inputRepatriation.getAmountRap());
+            raw.setCol10(inputRepatriation.getEuroAmount());
+            raw.setCol11(inputRepatriation.getCostRap());
+        } else {
+            inputTransactionStorage.addInputUnknown(transactionDetail);
+
+            raw.setCol1(transactionDetail.getType());
         }
 
         return raw;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import fr.bred.batchtotem.domain.InputAssignmentDetail;
 import fr.bred.batchtotem.domain.InputRepatriation;
-import fr.bred.batchtotem.domain.InputSummarization;
+import fr.bred.batchtotem.domain.TransactionDetail;
 import fr.bred.batchtotem.domain.TransactionSummarization;
 import fr.bred.batchtotem.util.NumberUtil;
 
@@ -18,14 +18,14 @@ public class InputTransactionStorage {
     private TransactionSummarization transactionSummarization;
     private List<InputRepatriation> inputRepatriations;
     private List<InputAssignmentDetail> inputAssignmentDetails;
-    private List<InputSummarization> inputSummarizations;
+    private List<TransactionDetail> inputUnknowns;
     private List<String> validationMessages;
 
     public InputTransactionStorage() {
         transactionSummarization = new TransactionSummarization();
         inputRepatriations = new ArrayList<>();
         inputAssignmentDetails = new ArrayList<>();
-        inputSummarizations = new ArrayList<>();
+        inputUnknowns = new ArrayList<>();
         validationMessages = new ArrayList<>();
     }
 
@@ -58,10 +58,6 @@ public class InputTransactionStorage {
         this.inputAssignmentDetails.add(inputAssignmentDetail);
     }
 
-    public void addInputSummarization(InputSummarization inputSummarization) {
-        this.inputSummarizations.add(inputSummarization);
-    }
-
     public TransactionSummarization getTransactionSummarization() {
         return transactionSummarization;
     }
@@ -74,8 +70,12 @@ public class InputTransactionStorage {
         return inputAssignmentDetails;
     }
 
-    public List<InputSummarization> getInputSummarizations() {
-        return inputSummarizations;
+    public void addInputUnknown(TransactionDetail unknown) {
+        this.inputUnknowns.add(unknown);
+    }
+
+    public List<TransactionDetail> getInputUnknowns() {
+        return inputUnknowns;
     }
 
     public List<String> getValidationMessages() {

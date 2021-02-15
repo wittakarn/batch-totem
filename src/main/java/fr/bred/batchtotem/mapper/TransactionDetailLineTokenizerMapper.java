@@ -8,19 +8,20 @@ public class TransactionDetailLineTokenizerMapper {
 
     public DelimitedLineTokenizer mapInputRepatriationLineTokenizer() {
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer(";");
+        lineTokenizer.setStrict(false);
 
      // @formatter:off
         lineTokenizer.setNames("type",
-                               "codePay",
-                               "nbRap",
-                               "corrStobi",
+                               "countryCode",
+                               "numberOfRecord",
+                               "correspondingStobi",
                                "compte",
-                               "refCor",
+                               "refCorresponding",
                                "refDebit",
-                               "devise",
-                               "mtRap",
-                               "meEur",
-                               "fraisRap");
+                               "currency",
+                               "amountRap",
+                               "euroAmount",
+                               "costRap");
      // @formatter:on
 
         return lineTokenizer;
@@ -32,14 +33,14 @@ public class TransactionDetailLineTokenizerMapper {
 
      // @formatter:off
         lineTokenizer.setNames("type",
-                               "matricule",
-                               "codeCaisse",
-                               "nDossierStobi",
-                               "mtemis",
-                               "mtrecu",
-                               "dateDePaiementInitial",
-                               "motif",
-                               "motifDurap",
+                               "beneficiaryCode",
+                               "customerCode",
+                               "stobiNumber",
+                               "amountSent",
+                               "amountReceived",
+                               "initialPaymentDate",
+                               "patternDcu",
+                               "patternRap",
                                "",
                                "");
      // @formatter:on
@@ -47,22 +48,12 @@ public class TransactionDetailLineTokenizerMapper {
         return lineTokenizer;
     }
 
-    public DelimitedLineTokenizer mapInputSummarizationLineTokenizer() {
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer(";");
+    public DelimitedLineTokenizer mapTransactionDetailLineTokenizer() {
+        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setStrict(false);
 
      // @formatter:off
-        lineTokenizer.setNames("type",
-                               "totalInputAssignmentDetail",
-                               "",
-                               "",
-                               "summarizeOfMtemis",
-                               "summarizeOfMtrecu",
-                               "",
-                               "",
-                               "",
-                               "",
-                               "");
+        lineTokenizer.setNames("type");
      // @formatter:on
 
         return lineTokenizer;

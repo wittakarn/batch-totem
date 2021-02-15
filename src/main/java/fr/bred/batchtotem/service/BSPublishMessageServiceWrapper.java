@@ -30,7 +30,7 @@ public class BSPublishMessageServiceWrapper {
 
         PublishMessageResponse response = bsPublishMessageClient.formatAndSendMessage(sc, //
                                                                                       "TOTEM_RAP", //
-                                                                                      publishMessageMapper.mapEmailPublishMessage(message));
+                                                                                      publishMessageMapper.mapValidationFailedPublishMessage(message));
 
         try {
             log.info("PublishMessageResponse: {}", new ObjectMapper().writeValueAsString(response));
